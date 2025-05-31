@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  <title>Index</title>
+</head>
+<header th:fragment="header">
+  <nav>
+    <a th:href="@{/}">Main</a>
+    <a th:href="@{/crew}">Tripulación</a>
+    <a th:href="@{/planets}">Planetas</a>
+  </nav>
+</header>
+</html>

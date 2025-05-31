@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Home</title>
+</head>
+<body>
+<header th:replace="fragments::header"></header>
+<main>
+    <div class="container px-4 py-5">
+        <h1>Bienvenidos a Expedition Manager</h1>
+        <div class="d-flex mt-3 mb-4">
+            <a class="btn btn-secondary ms-auto" th:href="@{'/expedition/new'}">Crear Nueva Expedicion</a>
+            <a class="btn btn-secondary ms-auto" th:href="@{'/crew/new'}">Agregar Miembro de Tripulación</a>
+            <a class="btn btn-secondary ms-auto" th:href="@{'/planet/new'}">Agregar Planeta</a>
+        </div>
+        <h1 class="pb-2 border-bottom">Lista de Expediciones</h1>
+
+        <div class="m-md-3">
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre Misión</th>
+                <th>Planeta Destino</th>
+                <th>Fecha de Lanzamiento</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="expedicion : ${listaExpediciones}">
+                <td th:text="${expedicion.getId()}"></td>
+                <td th:text="${expedicion.getNombreMision()}"></td>
+                <td th:text="${expedicion.getPlanetaDestino().getNombre()}"></td>
+                <td th:text="${expedicion.getEstado()}"></td>
+
+                <td><a class="btn btn-primary"
+                       th:href="@{'/expedition/details?id=' + ${expedicion.getId()}}">Ver Detalles</a>
+                    <a class="btn btn-secondary"
+                       th:href="@{'/expedition/edit?id=' + ${expedicion.getId()}}">Editar</a>
+                    <a class="btn btn-danger"
+                       th:href="@{'/expedition/delete?id=' + ${expedicion.getId()}}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h1 class="pb-2 border-bottom">Lista de Planetas</h1>
+
+        <div class="m-md-3">
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Habitable</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="planeta : ${listaPlanetas}">
+                <td th:text="${planeta.getNombre()}"></td>
+                <td th:text="${planeta.getTipoPlaneta()}"></td>
+                <td th:if="${planeta.isHabitable()}">Sí</td>
+                <td th:unless="${planeta.isHabitable()}">No</td>
+
+                <td><a class="btn btn-primary"
+                       th:href="@{'/planets/details?id=' + ${planeta.getId}}">Ver Detalles</a>
+                    <a class="btn btn-secondary"
+                       th:href="@{'/planets/edit?id=' + ${planeta.getId}}">Editar</a>
+                    <a class="btn btn-danger"
+                       th:href="@{'/planets/delete?id=' + ${planeta.getId}}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script th:src="@{/js/bootstrap.bundle.min.js}" ></script>
+</body>
+</html>

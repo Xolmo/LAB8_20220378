@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Lista de Miembros de Tripulación</title>
+</head>
+<body>
+<header th:replace="fragments::header"></header>
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom">Lista de Miembros de Triplación</h1>
+        <div class="d-flex mt-3 mb-4">
+            <a class="btn btn-secondary ms-auto" th:href="@{'/crew/new'}">Agregar Miembro de Tripulación</a>
+            <a class="btn btn-secondary ms-auto" th:href="@{'/'}">Regresar</a>
+        </div>
+        <div class="m-md-3">
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Rango</th>
+                <th>Fecha de Contratación</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="miembro : ${listaCrewMembers}">
+                <td th:text="${miembro.getId()}"></td>
+                <td th:text="${miembro.getNombreCompleto()}"></td>
+                <td th:text="${miembro.getEspecialidad()}"></td>
+                <td th:text="${miembro.getRango()}"></td>
+                <td th:text="${miembro.getFechaContratacion()}"></td>
+
+                <td><a class="btn btn-primary"
+                       th:href="@{'/crew/details?id=' + ${miembro.getId}}">Ver Detalles</a>
+
+                    <a class="btn btn-secondary"
+                       th:href="@{'/crew/edit?id=' + ${miembro.getId}}">Editar</a>
+                    <form th:action="@{/crew/delete}" method="post">
+                        <input type="hidden" name="id" th:value="${miembro.getId()}">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
